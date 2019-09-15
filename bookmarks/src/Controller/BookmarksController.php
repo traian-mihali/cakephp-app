@@ -43,8 +43,9 @@ class BookmarksController extends AppController
     public function export($limit = 100){
         $limit = $this->Validate->validLimit($limit, 100);
 
-        $bookmarks = $this->Bookmarks->find('all')->limit($limit)
-            ->where(['user_id' => 5])
+        $bookmarks = $this->Bookmarks
+            ->find('forUser', ['user_id' => 5])
+            ->limit($limit)
             ->contain(['Tags' => function($q){
                 return $q->where(['Tags.name Like' => '%E%']);
             }]);
