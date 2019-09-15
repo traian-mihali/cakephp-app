@@ -38,7 +38,7 @@
                 <td><?= h($bookmark->title) ?></td>
                 <td><?= $this->element('Bookmarks/url', ['bookmark' => $bookmark]) ?></td>
                 <td><?= $bookmark->numberOfTags() ?></td>
-                <td><?= h($bookmark->created) ?></td>
+                <td><?= $this->Time->timeAgoInWords($bookmark->created) ?></td>
                 <td><?= h($bookmark->modified) ?></td>
                 <td class="actions">
                     <?= $this->Html->link(__('View'), ['action' => 'view', $bookmark->id]) ?>
