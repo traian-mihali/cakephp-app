@@ -12,6 +12,14 @@ use App\Controller\AppController;
  */
 class BookmarksController extends AppController
 {
+
+    public function initialize()
+    {
+        parent::initialize();
+
+        $this->loadComponent('Validate');
+    }
+
     /**
      * Index method
      *
@@ -19,6 +27,9 @@ class BookmarksController extends AppController
      */
     public function index()
     {
+        // $this->Flash->default('default');
+        // $this->Flash->error('error');
+
         // change the layout in use by calling the viewBuilder method
         // $this->viewBuilder()->layout('ajax');
         $this->paginate = [
@@ -30,6 +41,8 @@ class BookmarksController extends AppController
     }
 
     public function export($limit = 100){
+        $limit = $this->Validate->validLimit($limit, 100);
+
         $bookmarks = $this->Bookmarks->find('all')->limit($limit)
             ->where(['user_id' => 5])
             ->contain(['Tags' => function($q){
